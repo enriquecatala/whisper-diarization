@@ -35,14 +35,7 @@ This repository combines Whisper ASR capabilities with Voice Activity Detection 
 
 Whisper, WhisperX and NeMo parameters are coded into diarize.py and helpers.py, I will add the CLI arguments to change them later
 ## Installation
-`FFMPEG` and `Cython` are needed as prerequisites to install the requirements
-```
-pip install cython
-```
-or
-```
-sudo apt update && sudo apt install cython3
-```
+`FFMPEG` and `miniconda` are needed as prerequisites to install the requirements
 ```
 # on Ubuntu or Debian
 sudo apt update && sudo apt install ffmpeg
@@ -59,16 +52,17 @@ choco install ffmpeg
 # on Windows using Scoop (https://scoop.sh/)
 scoop install ffmpeg
 ```
+
+### Installation using conda
+
 ```
-pip install -r requirements.txt
+conda env create -f environment.yml
 ```
 ## Usage 
 
 ```
 python diarize.py -a AUDIO_FILE_NAME
 ```
-
-If your system has enough VRAM (>=10GB), you can use `diarize_parallel.py` instead, the difference is that it runs NeMo in parallel with Whisper, this can be beneficial in some cases and the result is the same since the two models are nondependent on each other. This is still experimental, so expect errors and sharp edges. Your feedback is welcome.
 
 ## Command Line Options
 
@@ -79,6 +73,11 @@ If your system has enough VRAM (>=10GB), you can use `diarize_parallel.py` inste
 - `--device`: Choose which device to use, defaults to "cuda" if available
 - `--language`: Manually select language, useful if language detection failed
 - `--batch-size`: Batch size for batched inference, reduce if you run out of memory, set to 0 for non-batched inference
+
+### Export audio from video
+```
+ffmpeg -i video.mp4 -vn -acodec pcm_s16le -ar 44100 -ac 2 audio.wav
+```
 
 ## Known Limitations
 - Overlapping speakers are yet to be addressed, a possible approach would be to separate the audio file and isolate only one speaker, then feed it into the pipeline but this will need much more computation

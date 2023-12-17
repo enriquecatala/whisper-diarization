@@ -1,0 +1,9 @@
+name: whisper-diarization
+dependencies:
+  # The python interpreter version.
+  # Currently Azure ML only supports 3.5.2 and later.
+- python=3.10
+- cython=3.0
+- pip
+- pip:
+  - -r requirements.txt
