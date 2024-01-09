@@ -76,7 +76,7 @@ python diarize.py -a AUDIO_FILE_NAME
 
 ### Export audio from video
 ```
-ffmpeg -i video.mp4 -vn -acodec pcm_s16le -ar 44100 -ac 2 audio.wav
+ffmpeg -i video.mp4 -vn -acodec pcm_s16le -ar 44100 -ac 2 audio/audio.wav
 ```
 
 ## Known Limitations
