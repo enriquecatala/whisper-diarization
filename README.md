@@ -62,6 +62,7 @@ conda env create -f environment.yml
 
 ```
 python diarize.py -a AUDIO_FILE_NAME
+python diarize.py --whisper-model base --language es -a AUDIO_FILE_NAME
 ```
 
 ## Command Line Options
@@ -75,8 +76,14 @@ python diarize.py -a AUDIO_FILE_NAME
 - `--batch-size`: Batch size for batched inference, reduce if you run out of memory, set to 0 for non-batched inference
 
 ### Export audio from video
-```
+
+```bash
 ffmpeg -i video.mp4 -vn -acodec pcm_s16le -ar 44100 -ac 2 audio/audio.wav
+```
+
+If you want to convert multiple .mp4 inside a folder you can use the following script
+```bash
+./convert_mp4_to_mp3.sh /path/to/video /path/to/audio
 ```
 
 ## Known Limitations
