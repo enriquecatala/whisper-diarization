@@ -59,10 +59,11 @@ scoop install ffmpeg
 conda env create -f environment.yml
 ```
 ## Usage 
-
+Available models: tiny.en, tiny, base.en, base, small.en, small, medium.en, medium, large-v1, large-v2, large-v3, large
 ```
-python diarize.py -a AUDIO_FILE_NAME
-python diarize.py --whisper-model base --language es -a AUDIO_FILE_NAME
+python diarize.py -a AUDIO_FILE_NAME 
+python diarize.py --whisper-model medium --language es -a AUDIO_FILE_NAME # for spanish
+python diarize.py --whisper-model small.en -a AUDIO_FILE_NAME                 # english works well with base
 ```
 
 ## Command Line Options
