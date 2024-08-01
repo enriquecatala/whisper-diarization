@@ -80,6 +80,8 @@ python diarize.py --whisper-model small.en -a AUDIO_FILE_NAME                 # 
 
 ```bash
 ffmpeg -i video.mp4 -vn -acodec pcm_s16le -ar 44100 -ac 2 audio/audio.wav
+ffmpeg -i video.mp4 -vn -acodec aac -ar 44100 -ac 2 audio/audio.m4a
+
 ```
 
 If you want to convert multiple .mp4 inside a folder you can use the following script
