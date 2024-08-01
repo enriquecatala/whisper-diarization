@@ -10,6 +10,7 @@ def transcribe(
     device: str,
 ):
     from faster_whisper import WhisperModel
+
     from helpers import find_numeral_symbol_tokens, wav2vec2_langs
 
     # Faster Whisper non-batched
@@ -70,4 +71,4 @@ def transcribe_batched(
     result = whisper_model.transcribe(audio, language=language, batch_size=batch_size)
     del whisper_model
     torch.cuda.empty_cache()
-    return result["segments"], result["language"]
+    return result["segments"], result["language"], audio
