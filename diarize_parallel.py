@@ -2,9 +2,9 @@ import argparse
 import logging
 import os
 import re
+import subprocess
 
 import torch
-import torchaudio
 from ctc_forced_aligner import (
     generate_emissions,
     get_alignments,
@@ -14,11 +14,9 @@ from ctc_forced_aligner import (
     preprocess_text,
 )
 from deepmultilingualpunctuation import PunctuationModel
-from nemo.collections.asr.models.msdd_models import NeuralDiarizer
 
 from helpers import (
     cleanup,
-    create_config,
     get_realigned_ws_mapping_with_punctuation,
     get_sentences_speaker_mapping,
     get_speaker_aware_transcript,
@@ -109,9 +107,11 @@ if args.stemming:
 else:
     vocal_target = args.audio
 
-
+logging.info("Starting Nemo process with vocal_target: ", vocal_target)
+nemo_process = subprocess.Popen(
+    ["python3", "nemo_process.py", "-a", vocal_target, "--device", args.device],
+)
 # Transcribe the audio file
-
 whisper_results, language, audio_waveform = transcribe_batched(
     vocal_target,
     args.language,
@@ -158,28 +158,10 @@ spans = get_spans(tokens_starred, segments, alignment_tokenizer.decode(blank_id)
 
 word_timestamps = postprocess_results(text_starred, spans, stride, scores)
 
-
-# convert audio to mono for NeMo combatibility
+# Reading timestamps <> Speaker Labels mapping
+nemo_process.communicate()
 ROOT = os.getcwd()
 temp_path = os.path.join(ROOT, "temp_outputs")
-os.makedirs(temp_path, exist_ok=True)
-torchaudio.save(
-    os.path.join(temp_path, "mono_file.wav"),
-    audio_waveform.cpu().unsqueeze(0).float(),
-    16000,
-    channels_first=True,
-)
-
-
-# Initialize NeMo MSDD diarization model
-msdd_model = NeuralDiarizer(cfg=create_config(temp_path)).to(args.device)
-msdd_model.diarize()
-
-del msdd_model
-torch.cuda.empty_cache()
-
-# Reading timestamps <> Speaker Labels mapping
-
 
 speaker_ts = []
 with open(os.path.join(temp_path, "pred_rttms", "mono_file.rttm"), "r") as f:
