@@ -96,11 +96,11 @@ If you want to convert multiple .mp4 inside a folder you can use the following s
 
 ### Prompt for Summary to Save in Your Notes
 
----Please provide a comprehensive summary of the meeting, including the main points discussed, key decisions made, action items assigned, and any important deadlines. Highlight any critical insights or strategic directions mentioned during the meeting. Additionally, include any follow-up actions required and the responsible parties.
+---Please provide a comprehensive summary of the meeting, including the main points discussed, key decisions made, action items assigned, and any important deadlines. Highlight any critical insights or strategic directions mentioned during the meeting. Additionally, include any follow-up actions required and the responsible parties. Write it like if it was me writing the notes, I´m Enrique.
 
 ### Prompt for Summary to Share with Participants
 
----Please provide a concise summary of our meeting for distribution to all participants. Include the main topics covered, key decisions made, action items assigned, and respective deadlines. Highlight any important insights or agreements reached. Ensure that the summary is clear and actionable for all attendees.
+---Please provide a concise summary of our meeting for distribution to all participants. Include the main topics covered, key decisions made, action items assigned, and respective deadlines. Highlight any important insights or agreements reached. Ensure that the summary is clear and actionable for all attendees. Write it like if it was me writing the notes, , I´m Enrique.
 
 ## Known Limitations
 - Overlapping speakers are yet to be addressed, a possible approach would be to separate the audio file and isolate only one speaker, then feed it into the pipeline but this will need much more computation
